@@ -8,7 +8,7 @@ Grid grid = new Grid(6,8);
 PImage bg;
 PImage player1;
 PImage endScreen;
-String titleText = "NameOfYourGame";
+String titleText = "PeanutButter";
 String extraText = "Butter nut peanut";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
