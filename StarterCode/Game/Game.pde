@@ -9,7 +9,7 @@ PImage bg;
 PImage player1;
 PImage endScreen;
 String titleText = "NameOfYourGame";
-String extraText = "Who's Turn?";
+String extraText = "Butter nut peanut";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
 
