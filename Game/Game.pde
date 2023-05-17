@@ -12,13 +12,15 @@ PImage bg;
 PImage player1;
 PImage player2;
 PImage endScreen;
-String titleText = "HorseChess";
-String extraText = "Who's Turn?";
+String titleText = "PeanutButter";
+String extraText = "Butter Nut Peanut";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
 
 int player1Row = 3;
+int player1Col = 3;
+
 
 
 //Required Processing method that gets run once
@@ -31,8 +33,8 @@ void setup() {
   surface.setTitle(titleText);
 
   //Load images used
-  //bg = loadImage("images/chess.jpg");
-  bg = loadImage("images/x_wood.png");
+  bg = loadImage("images/chess.jpg");
+  //bg = loadImage("images/x_wood.png");
   bg.resize(800,600);
   player1 = loadImage("images/x_wood.png");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -99,7 +101,49 @@ void keyPressed(){
     player1Row--;
 
     //shift the player1 picture up in the array
-    GridLocation loc = new GridLocation(player1Row, 0);
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+  if(keyCode == 83){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Row++;
+
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+  if(keyCode == 68){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Col++;
+
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+  if(keyCode == 65){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Col--;
+
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileImage(loc, player1);
 
     //eliminate the picture from the old location
@@ -133,7 +177,7 @@ public void updateScreen(){
   background(bg);
 
   //Display the Player1 image
-  GridLocation player1Loc = new GridLocation(player1Row,0);
+  GridLocation player1Loc = new GridLocation(player1Row, player1Col);
   grid.setTileImage(player1Loc, player1);
   
   //update other screen elements
