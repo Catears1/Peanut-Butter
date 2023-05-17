@@ -1,0 +1,10 @@
+//Test file for some basic processing commands
+public void setup(){
+    size(800,600);
+}
+
+public void draw(){
+    fill(255,0,120);
+    circle(400,300,50);
+    triangle(0,0, 100, 100, 300,25);
+}
