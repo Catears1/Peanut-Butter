@@ -22,85 +22,238 @@ import java.io.IOException;
 
 public class Game extends PApplet {
 
-//Test file for some basic processing commands
-boolean left, right, up, down;
-Player p = new Player();
-String s = "";
+/* Game Class Starter File
+ * Authors: _____________________
+ * Last Edit: 5/17/23
+ */
 
-public void setup(){
-    /* size commented out by preprocessor */;
-    background(255);
+//import processing.sound.*;
 
-    left = false;
-    right = false;
-    up = false;
-    down = false;
+//GAME VARIABLES
+Grid grid = new Grid(6,8);
+//HexGrid hGrid = new HexGrid(3);
+PImage bg;
+PImage player1;
+PImage player2;
+PImage endScreen;
+String titleText = "PeanutButter";
+String extraText = "Butter Nut Peanut";
+AnimatedSprite exampleSprite;
+boolean doAnimation;
+//SoundFile song;
+
+int player1Row = 3;
+int player1Col = 3;
+
+
+
+//Required Processing method that gets run once
+public void setup() {
+
+  //Match the screen size to the background image size
+  /* size commented out by preprocessor */;
+
+  //Set the title on the title bar
+  surface.setTitle(titleText);
+
+  //Load images used
+  bg = loadImage("images/chess.jpg");
+  //bg = loadImage("images/x_wood.png");
+  bg.resize(800,600);
+  player1 = loadImage("images/x_wood.png");
+  player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
+  endScreen = loadImage("images/youwin.png");
+
+  // Load a soundfile from the /data folder of the sketch and play it back
+  // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
+  // song.play();
+
+  
+  //Animation & Sprite setup
+  exampleAnimationSetup();
+
+  println("Game started...");
+
+  //fullScreen();   //only use if not using a specfic bg image
+}
+
+//Required Processing method that automatically loops
+//(Anything drawn on the screen should be called from here)
+public void draw() {
+
+  updateTitleBar();
+  updateScreen();
+  populateSprites();
+  moveSprites();
+  
+  if(isGameOver()){
+    endGame();
+  }
+
+  checkExampleAnimation();
 
 }
 
-public void draw(){  
-    background(255);
-    p.update();
-    p.display();
 
-    fill(0);
-    textSize(24);
-    text(s, 100, 50);
+//Known Processing method that automatically will run when a mouse click triggers it
+public void mouseClicked(){
+  
+  //check if click was successful
+  System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
+  System.out.println("Grid location: " + grid.getGridLocation());
+
+  //what to do if clicked?
+  doAnimation = !doAnimation;
+  System.out.println("doAnimation: " + doAnimation);
+  grid.setMark("X",grid.getGridLocation());
+  
 }
 
+//Known Processing method that automatically will run whenever a key is pressed
 public void keyPressed(){
-    s = "key: " + keyCode;
-    switch(keyCode) {
-        case 65: //left
-            left = true;
-            break;
 
-        case 87: 
-            up = true;
-            break;
+  //check what key was pressed
+  System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
-        case 83:
-            down = true;
-            break;
+  //What to do when a key is pressed?
+  
+  //set "w" key to move the player1 up
+  if(keyCode == 87){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Row--;
 
-        case 68:
-            right = true;
-            break;
-    }
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+  if(keyCode == 83){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Row++;
+
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+  if(keyCode == 68){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Col++;
+
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+  if(keyCode == 65){
+    //check case where out of bounds
+    
+    //change the field for player1Row
+    player1Col--;
+
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, player1Col);
+    grid.setTileImage(loc, player1);
+
+    //eliminate the picture from the old location
+
+  }
+
+
 }
 
-    // if(keyCode == 65){
-    //     left = true;
-    // else if(keyCode == 87){
-    //     up = true;
-    // }
-    // else if(keyCode == 83){
-    //     down = true;
-    // }
-    // else if(keyCode == 68){
-    //     right = true;  
-    // }
 
-    public void keyReleased() {
-    switch (keyCode) {
-        case 65: //left
-            left = false;
-            break;
 
-        case 87: 
-            up = false;
-            break;
+//------------------ CUSTOM  METHODS --------------------//
 
-        case 83:
-            down = false;
-            break;
+//method to update the Title Bar of the Game
+public void updateTitleBar(){
 
-        case 68:
-            right = false;
-            break;
-    }
-    }
-    
+  if(!isGameOver()) {
+    //set the title each loop
+    surface.setTitle(titleText + "    " + extraText);
+
+    //adjust the extra text as desired
+  
+  }
+
+}
+
+//method to update what is drawn on the screen each frame
+public void updateScreen(){
+
+  //update the background
+  background(bg);
+
+  //Display the Player1 image
+  GridLocation player1Loc = new GridLocation(player1Row, player1Col);
+  grid.setTileImage(player1Loc, player1);
+  
+  //update other screen elements
+
+
+}
+
+//Method to populate enemies or other sprites on the screen
+public void populateSprites(){
+
+}
+
+//Method to move around the enemies/sprites on the screen
+public void moveSprites(){
+
+
+}
+
+//Method to handle the collisions between Sprites on the Screen
+public void handleCollisions(){
+
+
+}
+
+//method to indicate when the main game is over
+public boolean isGameOver(){
+  return false; //by default, the game is never over
+}
+
+//method to describe what happens after the game is over
+public void endGame(){
+    System.out.println("Game Over!");
+
+    //Update the title bar
+
+    //Show any end imagery
+    image(endScreen, 100,100);
+
+}
+
+//example method that creates 5 horses along the screen
+public void exampleAnimationSetup(){  
+  int i = 2;
+  exampleSprite = new AnimatedSprite("sprites/chick_walk.png", 50.0f, i*75.0f, "sprites/chick_walk.json");
+}
+
+//example method that animates the horse Sprites
+public void checkExampleAnimation(){
+  if(doAnimation){
+    exampleSprite.animateHorizontal(-0.1f,0.07f , true);
+  }
+}
 /* Animated Sprite class - useful to have Sprites move around
  * Designed to be used with Spritesheets & JSON files from TexturePack software
  * Revised from Daniel Shiffman's p5js Animated Sprite tutorial
@@ -124,7 +277,7 @@ public class AnimatedSprite extends Sprite{
     private int w;
     private int h;
     private int len;
-    private int index;
+    private float i_bucket;
 
     JSONObject spriteData;
     PImage spriteSheet;
@@ -158,20 +311,20 @@ public class AnimatedSprite extends Sprite{
       this.w = this.animation.get(0).width;
       this.h = this.animation.get(0).height;
       this.len = this.animation.size();
-      this.index = 0;
+      this.i_bucket = 0;
     }
   }
 
   //Overriden method: Displays the correct frame of the Sprite image on the screen
   public void show() {
-    int index = (int) Math.floor(Math.abs(this.index)) % this.len;
+    int index = (int) Math.floor(Math.abs(this.i_bucket)) % this.len;
     image(animation.get(index), super.getX(), super.getY());
     //System.out.println("Pos: "+ super.getX() +"," + super.getY());
   } 
 
   //Method to cycle through the images of the animated sprite
   public void animate(float animationSpeed){
-    index += (int) (animationSpeed * 10);
+    i_bucket +=  animationSpeed * 1;
     show();
   }
 
@@ -1327,65 +1480,6 @@ public class Platform {//extends Sprite {
 	}
 
 }
-class Player{
-
-    float x,y,w,h;
-    float speedX, speedY, maxSpeed;
-
-Player(){
-    x = width/2;
-    y = height/2;
-    w = 32;
-    h = 32;
-    maxSpeed = 10;
-    speedX = 0;
-    speedY = 0;
- }
-
-public void update(){
-
-    if(left){
-        speedY = 0;
-        speedX = -maxSpeed;
-    }
-
-    if(right){
-        speedY = 0;
-        speedX = maxSpeed;
-    }
-
-    if(!left && !right){
-        speedX = 0;
-    }
-
-    
-
-    if(up){
-        speedY = -maxSpeed;
-        speedX = 0;
-    }
-
-    if(down){
-        speedY = maxSpeed;
-        speedX = 0;
-    }
-
-    if(!up && !down){
-        speedY = 0;
-    }
-
-    
-
-    x += speedX;
-    y += speedY;
- }
-
-public void display(){
-    fill(255,0,0);
-    rect(x, y, w, h);
- }
-}
-
 /* Sprite class - to create objects that move around with their own properties
  * Inspired by Daniel Shiffman's p5js Animated Sprite tutorial
  * Author: Joel Bianchi
