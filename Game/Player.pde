@@ -14,6 +14,39 @@ Player(){
  }
 
 void update(){
+
+    if(left){
+        speedY = 0;
+        speedX = -maxSpeed;
+    }
+
+    if(right){
+        speedY = 0;
+        speedX = maxSpeed;
+    }
+
+    if(!left && !right){
+        speedX = 0;
+    }
+
+    
+
+    if(up){
+        speedY = -maxSpeed;
+        speedX = 0;
+    }
+
+    if(down){
+        speedY = maxSpeed;
+        speedX = 0;
+    }
+
+    if(!up && !down){
+        speedY = 0;
+    }
+
+    
+
     x += speedX;
     y += speedY;
  }
