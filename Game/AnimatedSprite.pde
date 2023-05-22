@@ -21,7 +21,7 @@ public class AnimatedSprite extends Sprite{
     private int w;
     private int h;
     private int len;
-    private int index;
+    private float i_bucket;
 
     JSONObject spriteData;
     PImage spriteSheet;
@@ -55,20 +55,20 @@ public class AnimatedSprite extends Sprite{
       this.w = this.animation.get(0).width;
       this.h = this.animation.get(0).height;
       this.len = this.animation.size();
-      this.index = 0;
+      this.i_bucket = 0;
     }
   }
 
   //Overriden method: Displays the correct frame of the Sprite image on the screen
   public void show() {
-    int index = (int) Math.floor(Math.abs(this.index)) % this.len;
+    int index = (int) Math.floor(Math.abs(this.i_bucket)) % this.len;
     image(animation.get(index), super.getX(), super.getY());
     //System.out.println("Pos: "+ super.getX() +"," + super.getY());
   } 
 
   //Method to cycle through the images of the animated sprite
   public void animate(float animationSpeed){
-    index += (int) (animationSpeed * 10);
+    i_bucket +=  animationSpeed * 1;
     show();
   }
 

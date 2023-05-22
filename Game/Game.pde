@@ -216,12 +216,12 @@ public void endGame(){
 //example method that creates 5 horses along the screen
 public void exampleAnimationSetup(){  
   int i = 2;
-  exampleSprite = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
+  exampleSprite = new AnimatedSprite("sprites/chick_walk.png", 50.0, i*75.0, "sprites/chick_walk.json");
 }
 
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(1.0, 0.1, true);
+    exampleSprite.animateHorizontal(-0.1,0.07 , true);
   }
 }
