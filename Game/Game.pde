@@ -9,7 +9,7 @@
 Grid grid = new Grid(6,8);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
-PImage player1;
+Player player1;
 PImage player2;
 PImage endScreen;
 String titleText = "PeanutButter";
@@ -36,7 +36,7 @@ void setup() {
   bg = loadImage("images/chess.jpg");
   //bg = loadImage("images/x_wood.png");
   bg.resize(800,600);
-  player1 = loadImage("images/x_wood.png");
+  player1 = new Player();
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
 

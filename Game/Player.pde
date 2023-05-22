@@ -1,4 +1,4 @@
-class Player {//extends AnimatedSprite{
+class Player extends AnimatedSprite{
 
     float x,y,w,h;
     float speedX, speedY, maxSpeed;
