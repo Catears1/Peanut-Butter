@@ -1,3 +1,8 @@
+/* Player class
+ * Authors: Tahlei Richardson & Aiden Sing
+ * Last Edit: 5/22/2023
+ */
+
 class Player extends AnimatedSprite{
 
     float x,y,w,h;
