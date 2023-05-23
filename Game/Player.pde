@@ -5,10 +5,14 @@
 
 class Player extends AnimatedSprite{
 
+    //Test code for some basic processing commands
+    boolean left, right, up, down;
+
     float x,y,w,h;
     float speedX, speedY, maxSpeed;
 
 Player(){
+    super("",0.0,0.0,""); //(String png, float x, float y, String json) {
     x = width/2;
     y = height/2;
     w = 32;
@@ -16,13 +20,18 @@ Player(){
     maxSpeed = 10;
     speedX = 0;
     speedY = 0;
+
+    left = false;
+    right = false;
+    up = false;
+    down = false;
  }
 
 void update(){
 
     //Horizantal Movement
     if(left){
-        moveLeft(-maxSpeed);
+        //moveLeft(-maxSpeed);
         // speedY = 0;
         // speedX = -maxSpeed;
     }
