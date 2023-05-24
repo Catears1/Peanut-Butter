@@ -12,7 +12,7 @@ class Player extends AnimatedSprite{
     float speedX, speedY, maxSpeed;
 
 Player(){
-    super("",0.0,0.0,""); //(String png, float x, float y, String json) {
+    super("sprites/chick_walk.png",0.0,0.0,"sprites/chick_walk.json"); //(String png, float x, float y, String json) {
     x = width/2;
     y = height/2;
     w = 32;
@@ -31,12 +31,12 @@ void update(){
 
     //Horizantal Movement
     if(left){
-        //moveLeft(-maxSpeed);
-        // speedY = 0;
-        // speedX = -maxSpeed;
+         speedY = 0;
+         speedX = -maxSpeed;
     }
 
     if(right){
+        
         speedY = 0;
         speedX = maxSpeed;
     }
@@ -65,8 +65,8 @@ void update(){
 
     // Diagnol Controls
     if(up && right){
-        speedY = -maxSpeed;
-        speedX = maxSpeed;
+        speedY -= 2;
+        speedX += 2;
     }
 
     if(up && left){
@@ -79,14 +79,14 @@ void update(){
     y += speedY;
  }
 
-void display(){
-    //The Game display Size
-    fill(255,0,0);
-    rect(x, y, w, h);
- }
+// void display(){
+//     //The Game display Size
+//     fill(255,0,0);
+//     rect(x, y, w, h);
+//  }
 
 void checkBounds(){
-
+    
  }
 }
 
