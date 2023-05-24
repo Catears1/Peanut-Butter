@@ -124,7 +124,7 @@ public void keyPressed(){
   if(keyCode == 87){
     
     player1Row-=2;
-
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
 
@@ -133,7 +133,7 @@ public void keyPressed(){
   if(keyCode == 81) {
     player1Row-=2;
     player1Col-=2;
-
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -141,7 +141,7 @@ public void keyPressed(){
   if(keyCode == 69) {
     player1Row-=2;
     player1Col+=2;
-    
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -149,7 +149,7 @@ public void keyPressed(){
   if(keyCode == 90) {
     player1Row+=2;
     player1Col-=2;
-    
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -157,7 +157,7 @@ public void keyPressed(){
   if(keyCode == 67) {
     player1Row+=2;
     player1Col+=2;
-    
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -165,7 +165,7 @@ public void keyPressed(){
   if(keyCode == 83){
     
     player1Row+=2;
-
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -173,7 +173,7 @@ public void keyPressed(){
   if(keyCode == 68){
     
     player1Col+=2;
-
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
 
@@ -182,7 +182,7 @@ public void keyPressed(){
   if(keyCode == 65){
 
     player1Col-=2;
-
+    p1.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
 
@@ -265,6 +265,7 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
+    exampleSprite.setRot(1.0f);
     exampleSprite.animateVertical(1.0f, 0.1f, true);
   }
 }
@@ -282,6 +283,7 @@ public class AnimatedSprite extends Sprite{
     private ArrayList<PImage> animation;
     private int len;
     private float i_bucket;
+    private double rot;
 
     JSONObject spriteData;
     PImage spriteSheet;
@@ -316,6 +318,7 @@ public class AnimatedSprite extends Sprite{
 
       this.len = this.animation.size();
       this.i_bucket = 0;
+      rot = 0.0f;
     }
     
     super.setW(this.animation.get(0).width);
@@ -335,7 +338,7 @@ public class AnimatedSprite extends Sprite{
 
   //Method to cycle through the images of the animated sprite
   public void animate(float animationSpeed){
-    i_bucket +=  animationSpeed * 1;
+    i_bucket +=  animationSpeed * rot;
     show();
   }
 
@@ -366,6 +369,9 @@ public class AnimatedSprite extends Sprite{
   //Accessor method for the JSON path
   public String getJsonPath(){
     return this.jsonPath;
+  }
+  public void setRot(double rot) {
+    this.rot = rot;
   }
 
   //---------------------PRIVATE HELPER METHODS--------------------------//
@@ -1713,6 +1719,11 @@ public void update(){
 
     //If both up and down are being pressed or both arent, the player character wont move.
     if(!up && !down || up && down){
+        speedY = 0;
+        super.setRot(0);
+    }
+
+    if(!up && !down && !left && !right){
         speedY = 0;
     }
 

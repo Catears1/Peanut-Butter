@@ -12,6 +12,7 @@ public class AnimatedSprite extends Sprite{
     private ArrayList<PImage> animation;
     private int len;
     private float i_bucket;
+    private double rot;
 
     JSONObject spriteData;
     PImage spriteSheet;
@@ -46,6 +47,7 @@ public class AnimatedSprite extends Sprite{
 
       this.len = this.animation.size();
       this.i_bucket = 0;
+      rot = 0.0;
     }
     
     super.setW(this.animation.get(0).width);
@@ -65,7 +67,7 @@ public class AnimatedSprite extends Sprite{
 
   //Method to cycle through the images of the animated sprite
   public void animate(float animationSpeed){
-    i_bucket +=  animationSpeed * 1;
+    i_bucket +=  animationSpeed * rot;
     show();
   }
 
@@ -96,6 +98,9 @@ public class AnimatedSprite extends Sprite{
   //Accessor method for the JSON path
   public String getJsonPath(){
     return this.jsonPath;
+  }
+  public void setRot(double rot) {
+    this.rot = rot;
   }
 
   //---------------------PRIVATE HELPER METHODS--------------------------//

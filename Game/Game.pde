@@ -100,7 +100,7 @@ void keyPressed(){
   if(keyCode == 87){
     
     player1Row-=2;
-
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
 
@@ -109,7 +109,7 @@ void keyPressed(){
   if(keyCode == 81) {
     player1Row-=2;
     player1Col-=2;
-
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -117,7 +117,7 @@ void keyPressed(){
   if(keyCode == 69) {
     player1Row-=2;
     player1Col+=2;
-    
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -125,7 +125,7 @@ void keyPressed(){
   if(keyCode == 90) {
     player1Row+=2;
     player1Col-=2;
-    
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -133,7 +133,7 @@ void keyPressed(){
   if(keyCode == 67) {
     player1Row+=2;
     player1Col+=2;
-    
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -141,7 +141,7 @@ void keyPressed(){
   if(keyCode == 83){
     
     player1Row+=2;
-
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
   }
@@ -149,7 +149,7 @@ void keyPressed(){
   if(keyCode == 68){
     
     player1Col+=2;
-
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
 
@@ -158,7 +158,7 @@ void keyPressed(){
   if(keyCode == 65){
 
     player1Col-=2;
-
+    p1.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p1);
 
@@ -241,6 +241,7 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
+    exampleSprite.setRot(1.0);
     exampleSprite.animateVertical(1.0, 0.1, true);
   }
 }
