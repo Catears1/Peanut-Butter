@@ -10,9 +10,12 @@ class Player extends AnimatedSprite{
 
     float x,y,w,h;
     float speedX, speedY, maxSpeed;
+    String png;
+    String json;
 
-Player(){
-    super("sprites/chick_walk.png",0.0,0.0,"sprites/chick_walk.json"); //(String png, float x, float y, String json) {
+Player(String png, String json){
+    super(png,0.0,0.0,json);
+    //(String png, float x, float y, String json) {
     x = width/2;
     y = height/2;
     w = 32;
@@ -26,6 +29,7 @@ Player(){
     up = false;
     down = false;
  }
+
 
 void update(){
 
@@ -64,7 +68,8 @@ void update(){
     }
 
     if(!up && !down && !left && !right){
-        speedY = 0;
+        //speedY = 0;
+        super.setRot(0);
     }
 
 

@@ -1,5 +1,5 @@
 /* Game Class Starter File
- * Authors: _____________________
+ * Authors: Aiden Sing, Tahlei Richardson
  * Last Edit: 5/17/23
  */
 
@@ -10,8 +10,9 @@ Grid grid = new Grid(100,100);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
+Player p;
 Player p1;
-PImage player2;
+Player p2;
 PImage endScreen;
 String titleText = "PeanutButter";
 String extraText = "Butter Nut Peanut";
@@ -38,7 +39,9 @@ void setup() {
   //bg = loadImage("images/x_wood.png");
   bg.resize(800,600);
   player1 = loadImage("images/x_wood.png");
-  p1 = new Player();
+  p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
+  p2 = new Player("sprites/chick_walk_inverted.png", "sprites/chick_walk_inverted.json");
+  p = new Player();
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
 
@@ -64,7 +67,7 @@ void draw() {
   updateScreen();
   populateSprites();
   moveSprites();
-  p1.update();
+  p.update();
   if(isGameOver()){
     endGame();
   }
@@ -100,67 +103,73 @@ void keyPressed(){
   if(keyCode == 87){
     
     player1Row-=2;
-    p1.setRot(0.1);
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
 
   }
 
   if(keyCode == 81) {
     player1Row-=2;
     player1Col-=2;
-    p1.setRot(0.1);
+    p = p1;
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
   }
 
   if(keyCode == 69) {
     player1Row-=2;
     player1Col+=2;
-    p1.setRot(0.1);
+    p = p2;
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
   }
 
   if(keyCode == 90) {
     player1Row+=2;
     player1Col-=2;
-    p1.setRot(0.1);
+    p = p1;
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
   }
 
   if(keyCode == 67) {
     player1Row+=2;
     player1Col+=2;
-    p1.setRot(0.1);
+    p = p2;
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
   }
 
   if(keyCode == 83){
     
     player1Row+=2;
-    p1.setRot(0.1);
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
   }
 
   if(keyCode == 68){
     
     player1Col+=2;
-    p1.setRot(0.1);
+    p = p2;
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
 
   }
 
   if(keyCode == 65){
 
     player1Col-=2;
-    p1.setRot(0.1);
+    p = p1;
+    p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p1);
+    grid.setTileSprite(loc, p);
 
   }
 
