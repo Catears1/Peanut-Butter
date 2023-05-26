@@ -41,7 +41,7 @@ void setup() {
   player1 = loadImage("images/x_wood.png");
   p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   p2 = new Player("sprites/chick_walk_inverted.png", "sprites/chick_walk_inverted.json");
-  p = new Player();
+  p = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
 
@@ -201,7 +201,7 @@ public void updateScreen(){
 
   //Display the Player1 image
   GridLocation player1Loc = new GridLocation(player1Row, player1Col);
-  grid.setTileSprite(player1Loc, p1);
+  grid.setTileSprite(player1Loc, p);
   
   //update other screen elements
 
