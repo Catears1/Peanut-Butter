@@ -40,7 +40,7 @@ Player p2;
 PImage endScreen;
 String titleText = "PeanutButter";
 String extraText = "Butter Nut Peanut";
-AnimatedSprite exampleSprite;
+// AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
 
@@ -75,7 +75,7 @@ public void setup() {
 
   
   //Animation & Sprite setup
-  exampleAnimationSetup();
+  //exampleAnimationSetup();
 
   println("Game started...");
 
@@ -96,7 +96,7 @@ public void draw() {
     endGame();
   }
 
-  checkExampleAnimation();
+  //checkExampleAnimation();
 
 }
 
@@ -121,19 +121,31 @@ public void keyPressed(){
   //check what key was pressed
   System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
+
   //What to do when a key is pressed?
   
   //set "w" key to move the player1 up
+
+
+
   if(keyCode == 87){
-    
+
+    if(player1Row - 2 <= 2){
+      player1Row +=0;
+    }
+
+    else{   
     player1Row-=2;
     p.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
-
+    }
   }
 
+  //set "q" key to move the player1 l left/up diagnol
   if(keyCode == 81) {
+
+    
     player1Row-=2;
     player1Col-=2;
     p = p1;
@@ -142,6 +154,7 @@ public void keyPressed(){
     grid.setTileSprite(loc, p);
   }
 
+  //set "e" key to move the player1 up/right diagnol
   if(keyCode == 69) {
     player1Row-=2;
     player1Col+=2;
@@ -151,6 +164,7 @@ public void keyPressed(){
     grid.setTileSprite(loc, p);
   }
 
+  //set "z" key to move the player1 down/left diagnol
   if(keyCode == 90) {
     player1Row+=2;
     player1Col-=2;
@@ -160,6 +174,7 @@ public void keyPressed(){
     grid.setTileSprite(loc, p);
   }
 
+  //set "c" key to move the player1 dow/right diagnol
   if(keyCode == 67) {
     player1Row+=2;
     player1Col+=2;
@@ -168,17 +183,17 @@ public void keyPressed(){
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
   }
-
+  
+  //set "s" key to move the player1 down
   if(keyCode == 83){
-    
     player1Row+=2;
     p.setRot(0.1f);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
   }
 
+  //set "d" key to move the player1 right 
   if(keyCode == 68){
-    
     player1Col+=2;
     p = p2;
     p.setRot(0.1f);
@@ -187,6 +202,8 @@ public void keyPressed(){
 
   }
 
+
+  //set "a" key to move the player1 left
   if(keyCode == 65){
 
     player1Col-=2;
@@ -266,18 +283,18 @@ public void endGame(){
 }
 
 //example method that creates 5 horses along the screen
-public void exampleAnimationSetup(){  
-  int i = 2;
-  exampleSprite = new AnimatedSprite("sprites/horse_run.png", 50.0f, i*75.0f, "sprites/horse_run.json");
-}
+// public void exampleAnimationSetup(){  
+//   int i = 2;
+//   exampleSprite = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
+// }
 
 //example method that animates the horse Sprites
-public void checkExampleAnimation(){
-  if(doAnimation){
-    exampleSprite.setRot(1.0f);
-    exampleSprite.animateVertical(1.0f, 0.1f, true);
-  }
-}
+// public void checkExampleAnimation(){
+//   if(doAnimation){
+//     exampleSprite.setRot(1.0);
+//     exampleSprite.animateVertical(1.0, 0.1, true);
+//   }
+// }
 /* Animated Sprite class - useful to have Sprites move around
  * Designed to be used with Spritesheets & JSON Array files from TexturePacker software: 
  * https://free-tex-packer.com/app/
