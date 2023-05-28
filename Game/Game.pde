@@ -172,12 +172,27 @@ void keyPressed(){
 
   //set "z" key to move the player1 down/left diagnol
   if(keyCode == 90) {
+    if(player1Col - 2 <= 2 && (player1Row + 2 >= 86) == false){
+      player1Row +=2;
+      player1Col +=0;
+    }
+
+    else if(player1Row + 2 >= 86 && (player1Col - 2 <= 2) == false){
+      player1Row +=0;
+      player1Col -=2;
+    }
+    else if(player1Row + 2 >= 86 && player1Col - 2 <= 2){
+      player1Row +=0;
+      player1Col +=0;
+    } 
+    else {
     player1Row+=2;
     player1Col-=2;
     p = p1;
     p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
+    }
   }
 
   //set "c" key to move the player1 dow/right diagnol
