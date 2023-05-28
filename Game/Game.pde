@@ -121,7 +121,21 @@ void keyPressed(){
   //set "q" key to move the player1 l left/up diagnol
   if(keyCode == 81) {
 
-    
+    if(player1Col - 2 <= 2 && (player1Row - 2 <= 2) == false){
+      player1Row -=2;
+      player1Col +=0;
+    }
+
+    else if(player1Row - 2 <= 2 && (player1Col - 2 <= 2) == false){
+      player1Row +=0;
+      player1Col -=2;
+    }
+    else if(player1Row - 2 <= 2 && player1Col - 2 <= 2){
+      player1Row +=0;
+      player1Col +=0;
+    }
+
+    else{
     player1Row-=2;
     player1Col-=2;
     p = p1;
@@ -129,15 +143,31 @@ void keyPressed(){
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
   }
+  }
 
   //set "e" key to move the player1 up/right diagnol
   if(keyCode == 69) {
-    player1Row-=2;
-    player1Col+=2;
-    p = p2;
-    p.setRot(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
+    if(player1Row - 2 <= 2 && (player1Col + 2 >= 92) == false){
+      player1Row +=0;
+      player1Col +=2;
+    }
+    else if(player1Col + 2 >= 92 && (player1Row - 2 <= 2) == false){
+      player1Row -=2;
+      player1Col +=0;
+    }
+    else if(player1Col + 2 >= 92 && player1Row - 2 <= 2){
+      player1Row +=0;
+      player1Col +=0;
+    }
+    else{
+      player1Row-=2;
+      player1Col+=2;
+      p = p2;
+      p.setRot(0.1);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
+    }
+    
   }
 
   //set "z" key to move the player1 down/left diagnol
@@ -152,36 +182,67 @@ void keyPressed(){
 
   //set "c" key to move the player1 dow/right diagnol
   if(keyCode == 67) {
-    player1Row+=2;
-    player1Col+=2;
-    p = p2;
-    p.setRot(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
+    if(player1Row + 2 >= 86 && (player1Col + 2 >= 92) == false){
+      player1Row +=0;
+      player1Col +=2;
+    }
+    else if(player1Col + 2 >= 92 && (player1Row + 2 >= 86) == false){
+      player1Row +=2;
+      player1Col +=0;
+    }
+    else if(player1Col + 2 >= 92 && player1Row + 2 >= 86){
+      player1Row +=0;
+      player1Col +=0;
+    }
+    else{
+      player1Row+=2;
+      player1Col+=2;
+      p = p2;
+      p.setRot(0.1);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
+    }
+    
   }
   
   //set "s" key to move the player1 down
   if(keyCode == 83){
+    if(player1Row + 2 >= 86){
+      player1Row +=0;
+    }
+
+    else{
     player1Row+=2;
     p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
   }
-
+  }
   //set "d" key to move the player1 right 
   if(keyCode == 68){
+    if(player1Col + 2 >= 92){
+      player1Col +=0;
+    }
+
+    else{
     player1Col+=2;
     p = p2;
     p.setRot(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
 
+  }
   }
 
 
   //set "a" key to move the player1 left
   if(keyCode == 65){
 
+    if(player1Col - 2 <= 2){
+      player1Col +=0;
+    }
+
+    else{
     player1Col-=2;
     p = p1;
     p.setRot(0.1);
@@ -192,7 +253,7 @@ void keyPressed(){
 
 
 }
-
+}
 
 
 //------------------ CUSTOM  METHODS --------------------//
