@@ -112,7 +112,7 @@ void keyPressed(){
 
     else{   
     player1Row-=2;
-    p.setRot(0.1);
+    p.setAnimationSpeed(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
     }
@@ -139,7 +139,7 @@ void keyPressed(){
     player1Row-=2;
     player1Col-=2;
     p = p1;
-    p.setRot(0.1);
+    p.setAnimationSpeed(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
   }
@@ -163,7 +163,7 @@ void keyPressed(){
       player1Row-=2;
       player1Col+=2;
       p = p2;
-      p.setRot(0.1);
+      p.setAnimationSpeed(0.1);
       GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileSprite(loc, p);
     }
@@ -189,7 +189,7 @@ void keyPressed(){
     player1Row+=2;
     player1Col-=2;
     p = p1;
-    p.setRot(0.1);
+    p.setAnimationSpeed(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
     }
@@ -213,7 +213,7 @@ void keyPressed(){
       player1Row+=2;
       player1Col+=2;
       p = p2;
-      p.setRot(0.1);
+      p.setAnimationSpeed(0.1);
       GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileSprite(loc, p);
     }
@@ -228,7 +228,7 @@ void keyPressed(){
 
     else{
     player1Row+=2;
-    p.setRot(0.1);
+    p.setAnimationSpeed(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
   }
@@ -242,7 +242,7 @@ void keyPressed(){
     else{
     player1Col+=2;
     p = p2;
-    p.setRot(0.1);
+    p.setAnimationSpeed(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
 
@@ -260,7 +260,7 @@ void keyPressed(){
     else{
     player1Col-=2;
     p = p1;
-    p.setRot(0.1);
+    p.setAnimationSpeed(0.1);
     GridLocation loc = new GridLocation(player1Row, player1Col);
     grid.setTileSprite(loc, p);
 
@@ -343,7 +343,7 @@ public void endGame(){
 //example method that animates the horse Sprites
 // public void checkExampleAnimation(){
 //   if(doAnimation){
-//     exampleSprite.setRot(1.0);
+//     exampleSprite.setAnimationSpeed(1.0);
 //     exampleSprite.animateVertical(1.0, 0.1, true);
 //   }
 // }

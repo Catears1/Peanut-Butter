@@ -64,12 +64,12 @@ void update(){
     //If both up and down are being pressed or both arent, the player character wont move.
     if(!up && !down || up && down){
         speedY = 0;
-        super.setRot(0);
+        super.setAnimationSpeed(0);
     }
 
     if(!up && !down && !left && !right){
         //speedY = 0;
-        super.setRot(0);
+        super.setAnimationSpeed(0);
     }
 
 
