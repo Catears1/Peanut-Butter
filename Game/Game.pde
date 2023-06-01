@@ -20,6 +20,8 @@ String extraText = "Butter Nut Peanut";
 boolean doAnimation;
 //SoundFile song;
 
+float walkSpeed = 1.0;
+
 int player1Row = 3;
 int player1Col = 3;
 
@@ -42,6 +44,7 @@ void setup() {
   p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   p2 = new Player("sprites/chick_walk_inverted.png", "sprites/chick_walk_inverted.json");
   p = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
+  p.setAnimationSpeed(walkSpeed);
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
 
@@ -101,31 +104,24 @@ void keyPressed(){
   //What to do when a key is pressed?
   
   //set "w" key to move the player1 up
-
-
-
   if(keyCode == 87){
-
     if(player1Row - 2 <= 2){
       player1Row +=0;
     }
-
     else{   
-    player1Row-=2;
-    p.setAnimationSpeed(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
+      player1Row-=2;
+      p.setAnimationSpeed(walkSpeed);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
     }
   }
 
   //set "q" key to move the player1 l left/up diagnol
   if(keyCode == 81) {
-
     if(player1Col - 2 <= 2 && (player1Row - 2 <= 2) == false){
       player1Row -=2;
       player1Col +=0;
     }
-
     else if(player1Row - 2 <= 2 && (player1Col - 2 <= 2) == false){
       player1Row +=0;
       player1Col -=2;
@@ -134,15 +130,14 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=0;
     }
-
     else{
-    player1Row-=2;
-    player1Col-=2;
-    p = p1;
-    p.setAnimationSpeed(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
-  }
+      player1Row-=2;
+      player1Col-=2;
+      p = p1;
+      p.setAnimationSpeed(walkSpeed);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
+    }
   }
 
   //set "e" key to move the player1 up/right diagnol
@@ -163,7 +158,7 @@ void keyPressed(){
       player1Row-=2;
       player1Col+=2;
       p = p2;
-      p.setAnimationSpeed(0.1);
+      p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileSprite(loc, p);
     }
@@ -176,7 +171,6 @@ void keyPressed(){
       player1Row +=2;
       player1Col +=0;
     }
-
     else if(player1Row + 2 >= 86 && (player1Col - 2 <= 2) == false){
       player1Row +=0;
       player1Col -=2;
@@ -186,12 +180,12 @@ void keyPressed(){
       player1Col +=0;
     } 
     else {
-    player1Row+=2;
-    player1Col-=2;
-    p = p1;
-    p.setAnimationSpeed(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
+      player1Row+=2;
+      player1Col-=2;
+      p = p1;
+      p.setAnimationSpeed(walkSpeed);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
     }
   }
 
@@ -213,11 +207,10 @@ void keyPressed(){
       player1Row+=2;
       player1Col+=2;
       p = p2;
-      p.setAnimationSpeed(0.1);
+      p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileSprite(loc, p);
     }
-    
   }
   
   //set "s" key to move the player1 down
@@ -225,28 +218,26 @@ void keyPressed(){
     if(player1Row + 2 >= 86){
       player1Row +=0;
     }
-
     else{
-    player1Row+=2;
-    p.setAnimationSpeed(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
+      player1Row+=2;
+      p.setAnimationSpeed(walkSpeed);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
+    }
   }
-  }
+
   //set "d" key to move the player1 right 
   if(keyCode == 68){
     if(player1Col + 2 >= 92){
       player1Col +=0;
     }
-
     else{
-    player1Col+=2;
-    p = p2;
-    p.setAnimationSpeed(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
-
-  }
+      player1Col+=2;
+      p = p2;
+      p.setAnimationSpeed(walkSpeed);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
+    }
   }
 
 
@@ -256,18 +247,14 @@ void keyPressed(){
     if(player1Col - 2 <= 2){
       player1Col +=0;
     }
-
     else{
-    player1Col-=2;
-    p = p1;
-    p.setAnimationSpeed(0.1);
-    GridLocation loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(loc, p);
-
+      player1Col-=2;
+      p = p1;
+      p.setAnimationSpeed(walkSpeed);
+      GridLocation loc = new GridLocation(player1Row, player1Col);
+      grid.setTileSprite(loc, p);
+    }
   }
-
-
-}
 }
 
 
