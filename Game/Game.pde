@@ -16,6 +16,9 @@ Player p2;
 PImage endScreen;
 String titleText = "PeanutButter";
 String extraText = "Butter Nut Peanut";
+String bgs[] = {"inhouse.png", "outhouseremovedbg.png", "grass.png"};
+
+
 // AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
