@@ -35,6 +35,7 @@ Grid grid = new Grid(100,100);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
+PImage hs;
 Player p;
 Player p1;
 Player p2;
@@ -67,7 +68,7 @@ public void setup() {
   //Load images used
   bg = loadImage("images/grass.png");
   //bg = loadImage("images/x_wood.png");
-  bg.resize(800,600);
+  bg.resize(1920,1080);
   player1 = loadImage("images/x_wood.png");
   p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   p2 = new Player("sprites/chick_walk_inverted.png", "sprites/chick_walk_inverted.json");
@@ -75,6 +76,7 @@ public void setup() {
   p.setAnimationSpeed(walkSpeed);
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
+  hs = loadImage("images/outhouseremovedbg.png");
 
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
@@ -92,8 +94,8 @@ public void setup() {
 //Required Processing method that automatically loops
 //(Anything drawn on the screen should be called from here)
 public void draw() {
-
-  
+  image(hs, 0, 0);
+  image(hs, 0, 0, width/2, height/2);
   updateTitleBar();
   updateScreen();
   populateSprites();
@@ -2162,7 +2164,7 @@ public class World {
 }
 
 
-  public void settings() { size(800, 600); }
+  public void settings() { size(1920, 1080); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Game" };
