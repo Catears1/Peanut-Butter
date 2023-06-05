@@ -10,12 +10,16 @@ Grid grid = new Grid(100,100);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
+PImage hs;
 Player p;
 Player p1;
 Player p2;
 PImage endScreen;
 String titleText = "PeanutButter";
 String extraText = "Butter Nut Peanut";
+String bgs[] = {"inhouse.png", "outhouseremovedbg.png", "grass.png"};
+
+
 // AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
@@ -31,7 +35,7 @@ int player1Col = 3;
 void setup() {
 
   //Match the screen size to the background image size
-  size(800, 600);
+  size(1920, 1080);
 
   //Set the title on the title bar
   surface.setTitle(titleText);
@@ -39,7 +43,7 @@ void setup() {
   //Load images used
   bg = loadImage("images/grass.png");
   //bg = loadImage("images/x_wood.png");
-  bg.resize(800,600);
+  bg.resize(1920,1080);
   player1 = loadImage("images/x_wood.png");
   p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   p2 = new Player("sprites/chick_walk_inverted.png", "sprites/chick_walk_inverted.json");
@@ -47,6 +51,7 @@ void setup() {
   p.setAnimationSpeed(walkSpeed);
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
+  hs = loadImage("images/outhouseremovedbg.png");
 
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
@@ -64,8 +69,8 @@ void setup() {
 //Required Processing method that automatically loops
 //(Anything drawn on the screen should be called from here)
 void draw() {
-
-  
+  image(hs, 0, 0);
+  image(hs, 0, 0, width/2, height/2);
   updateTitleBar();
   updateScreen();
   populateSprites();
