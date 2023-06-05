@@ -443,7 +443,7 @@ public class AnimatedSprite extends Sprite{
   public void show() {
     int index = (int) Math.floor(Math.abs(this.iBucket)) % this.len;
     image(animation.get(index), super.getLeft(), super.getTop());
-    System.out.println("aSpeed: "+ aSpeed+"\tib: "+iBucket+"\t ind: "+ index);
+    //System.out.println("aSpeed: "+ aSpeed+"\tib: "+iBucket+"\t ind: "+ index);
     //System.out.println("Pos: "+ super.getX() +"," + super.getY());
   } 
 
