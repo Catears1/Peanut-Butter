@@ -72,6 +72,12 @@ void setup() {
 void draw() {
   // image(hs, 0, 0);
   // image(hs, 0, 0, width/2, height/2);
+
+  if(player1Row == 20 && player1Col ==  10){
+    bg = loadImage("images/inhouse.png");
+    bg.resize(1920,1080);
+    
+  }
   updateTitleBar();
   updateScreen();
   populateSprites();
@@ -80,7 +86,7 @@ void draw() {
   if(isGameOver()){
     endGame();
   }
-
+ws
   //checkExampleAnimation();
 
 }
