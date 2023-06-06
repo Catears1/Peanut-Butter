@@ -18,6 +18,7 @@ PImage endScreen;
 String titleText = "PeanutButter";
 String extraText = "Butter Nut Peanut";
 String bgs[] = {"inhouse.png", "outhouseremovedbg.png", "grass.png"};
+// boolean itemCollision = false;
 
 
 // AnimatedSprite exampleSprite;
@@ -113,6 +114,9 @@ void keyPressed(){
     if(player1Row - 2 <= 2){
       player1Row +=0;
     }
+    else if(itemCollisions() == true) {
+      player1Row+=0;
+    }
     else{   
       player1Row-=1;
       p.setAnimationSpeed(walkSpeed);
@@ -135,6 +139,9 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=0;
     }
+    else if(itemCollisions() == true) {
+      player1Row+=0;
+    }
     else{
       player1Row-=1;
       player1Col-=1;
@@ -143,6 +150,8 @@ void keyPressed(){
       GridLocation loc = new GridLocation(player1Row, player1Col);
       grid.setTileSprite(loc, p);
     }
+
+
   }
 
   //set "e" key to move the player1 up/right diagnol
@@ -150,6 +159,9 @@ void keyPressed(){
     if(player1Row - 2 <= 2 && (player1Col + 2 >= 92) == false){
       player1Row +=0;
       player1Col +=1;
+    }
+    else if(itemCollisions() == true) {
+      player1Row+=0;
     }
     else if(player1Col + 2 >= 92 && (player1Row - 2 <= 2) == false){
       player1Row -=1;
@@ -159,6 +171,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=0;
     }
+    
     else{
       player1Row-=1;
       player1Col+=1;
@@ -175,6 +188,9 @@ void keyPressed(){
     if(player1Col - 2 <= 2 && (player1Row + 2 >= 86) == false){
       player1Row +=1;
       player1Col +=0;
+    }
+    else if(itemCollisions() == true) {
+      player1Row+=0;
     }
     else if(player1Row + 2 >= 86 && (player1Col - 2 <= 2) == false){
       player1Row +=0;
@@ -199,6 +215,9 @@ void keyPressed(){
     if(player1Row + 2 >= 86 && (player1Col + 2 >= 92) == false){
       player1Row +=0;
       player1Col +=1;
+    }
+    else if(itemCollisions() == true) {
+      player1Row+=0;
     }
     else if(player1Col + 2 >= 92 && (player1Row + 2 >= 86) == false){
       player1Row +=1;
@@ -252,6 +271,12 @@ void keyPressed(){
     if(player1Col - 2 <= 2){
       player1Col +=0;
     }
+    else if(itemCollisions() == true) {
+      player1Row+=0;
+    }
+    // if((player1Col - 2 < 23 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
+    //   
+    // }
     else{
       player1Col-=1;
       p = p1;
@@ -308,8 +333,17 @@ public void moveSprites(){
 
 //Method to handle the collisions between Sprites on the Screen
 public void handleCollisions(){
-  // add image collision detection here
+  
 
+}
+
+ public boolean itemCollisions() {
+  if((player1Col - 2 < 23 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
+    return true;
+  }else{
+    return false;
+  }
+  
 }
 
 //method to indicate when the main game is over
