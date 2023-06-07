@@ -5,31 +5,60 @@
 
 //import processing.sound.*;
 
+//import processing.sound.*;
+
 //GAME VARIABLES
-Grid grid = new Grid(100,100);
-//HexGrid hGrid = new HexGrid(3);
-PImage bg;
+private int msElapsed = 0;
+String titleText = "PeanutButter";
+String extraText = "Butter Nut Peanut";
+
+//Screens
+Screen currentScreen;
+Grid grid;
+
+//Splash Screen Variables
+Screen splashScreen;
+String splashBgFile = "images/chess.jpg";
+PImage splashBg;
+
+//Main Screen Variables
+Grid mainGrid;
+String mainBgFile = "images/grass.png";
+PImage mainBg;
+
 PImage player1;
-PImage hs;
+String player1File = "images/x_wood.png";
+int player1Row = 3;
+int player1Col = 3;
+float walkSpeed = 0.2;
+int health = 3;
 Player p;
 Player p1;
 Player p2;
-PImage endScreen;
-String titleText = "PeanutButter";
-String extraText = "Butter Nut Peanut";
+
+PImage hs;
+String hsFile = "images/outhouseremovedbg.png";
+
+//House Screen Variables
+Grid houseGrid;
+PImage houseBg;
+String houseBgFile = "images/inhouse.png";
+
 String bgs[] = {"inhouse.png", "outhouseremovedbg.png", "grass.png"};
 // boolean itemCollision = false;
-
 
 // AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
 
-float walkSpeed = 0.2;
+//EndScreen variables
+World endScreen;
+PImage endBg;
+String endBgFile = "images/youwin.png";
 
-int player1Row = 3;
-int player1Col = 3;
-
+//Example Variables
+//HexGrid hGrid = new HexGrid(3);
+//SoundFile song;
 
 
 //Required Processing method that gets run once
@@ -41,30 +70,52 @@ void setup() {
   //Set the title on the title bar
   surface.setTitle(titleText);
 
-  //Load images used
-  bg = loadImage("images/grass.png");
-  //bg = loadImage("images/x_wood.png");
-  bg.resize(1920,1080);
-  player1 = loadImage("images/x_wood.png");
+
+  //Load BG images used
+  splashBg = loadImage(splashBgFile);
+  splashBg.resize(1920,1080);
+  mainBg = loadImage(mainBgFile);
+  mainBg.resize(1920,1080);
+  houseBg = loadImage(houseBgFile);
+  houseBg.resize(1920,1080);
+  endBg = loadImage(endBgFile);
+  endBg.resize(1920,1080);
+
+  //setup the screens/worlds/grids in the Game
+  splashScreen = new Screen("splash", splashBg);
+  mainGrid = new Grid("grass", mainBg, 100,100);
+  houseGrid = new Grid("house", houseBg, 100,100);
+  endScreen = new World("end", endBg);
+  currentScreen = splashScreen;
+  grid = mainGrid;
+
+  //Load other images
+  hs = loadImage(hsFile);
+
+  //setup the sprites  
+  player1 = loadImage(player1File);
+  player1.resize(mainGrid.getTileWidthPixels(),mainGrid.getTileHeightPixels());
   p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   p2 = new Player("sprites/chick_walk_inverted.png", "sprites/chick_walk_inverted.json");
   p = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
   p.setAnimationSpeed(walkSpeed);
-  player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
-  endScreen = loadImage("images/youwin.png");
-  hs = loadImage("images/outhouseremovedbg.png");
 
+  //add sprites to the Screens
+  System.out.println("Adding sprites to main world...");
+  // mainGrid.addSpriteCopyTo(item1, 1000,100);
+  // mainGrid.addSpriteCopyTo(item2, 900, 400);
+  mainGrid.printSprites();
+  System.out.println("Done adding sprites to sky world..");
+
+  //Other Setup
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
   // song.play();
-
   
-  //Animation & Sprite setup
-  //exampleAnimationSetup();
-
+  imageMode(CORNER);    //Set Images to read coordinates at corners
+  //fullScreen();   //only use if not using a specfic bg image
   println("Game started...");
 
-  //fullScreen();   //only use if not using a specfic bg image
 }
 
 //Required Processing method that automatically loops
@@ -73,13 +124,8 @@ void draw() {
   // image(hs, 0, 0);
   // image(hs, 0, 0, width/2, height/2);
 
-  if(player1Row == 20 && player1Col ==  10){
-    bg = loadImage("images/inhouse.png");
-    bg.resize(1920,1080);
-    
-  }
   updateTitleBar();
-  updateScreen();
+  updateScreen(); //<--where logic is to switch screens
   populateSprites();
   moveSprites();
   p.update();
@@ -93,7 +139,7 @@ void draw() {
 
 //Known Processing method that automatically will run when a mouse click triggers it
 void mouseClicked(){
-  
+    
   //check if click was successful
   System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
   System.out.println("Grid location: " + grid.getGridLocation());
@@ -311,19 +357,46 @@ public void updateTitleBar(){
 //method to update what is drawn on the screen each frame
 public void updateScreen(){
 
-  //update the background
-  background(bg);
-  //image(hs, 0, 0);
-  image(hs, 0, 0, width/4, height/3);
+  //Update the Background
+  background(currentScreen.getBg());
 
-  //Display the Player1 image
-  GridLocation player1Loc = new GridLocation(player1Row, player1Col);
-  grid.setTileSprite(player1Loc, p);
-  
-  //update other screen elements
+
+  //splashScreen update
+  if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
+    currentScreen = mainGrid;
+  }
+
+  //Update mainGrid screen
+  if(currentScreen == mainGrid){
+
+    //Display the Player1 image
+    GridLocation player1Loc = new GridLocation(player1Row, player1Col);
+    grid.setTileSprite(player1Loc, p);
+
+    //Display House
+    image(hs, 0, 0, width/4, height/3);
+    //image(hs, 0, 0);
+
+    //Switch screens when entering the house
+    if(player1Row == 20 && player1Col ==  10){
+      currentScreen = houseGrid;
+      // bg = loadImage("images/inhouse.png");
+      // bg.resize(1920,1080);  
+    }
+
+    //update other screen elements
+    // mainGrid.showSprites();
+    // mainGrid.showImages();
+    // mainGrid.showGridSprites();
+    // checkExampleAnimation();
+
+  }
+
+  //Other Screen? House? End?
 
 
 }
+
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
@@ -363,7 +436,8 @@ public void endGame(){
     //Update the title bar
 
     //Show any end imagery
-    image(endScreen, 100,100);
+    currentScreen = endScreen;
+    //image(endBg, 100,100);
 
 }
 
