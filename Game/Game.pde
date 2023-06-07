@@ -14,7 +14,8 @@ String extraText = "Butter Nut Peanut";
 
 //Screens
 Screen currentScreen;
-Grid grid;
+World currentWorld;
+Grid currentGrid;
 
 //Splash Screen Variables
 Screen splashScreen;
@@ -87,7 +88,7 @@ void setup() {
   houseGrid = new Grid("house", houseBg, 100,100);
   endScreen = new World("end", endBg);
   currentScreen = splashScreen;
-  grid = mainGrid;
+  currentGrid = mainGrid;
 
   //Load other images
   hs = loadImage(hsFile);
@@ -142,12 +143,17 @@ void mouseClicked(){
     
   //check if click was successful
   System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
-  System.out.println("Grid location: " + grid.getGridLocation());
+  if(currentGrid != null){
+    System.out.println("Grid location: " + currentGrid.getGridLocation());
+  }
 
-  //what to do if clicked?
+  //Toggle the animation on & off
   doAnimation = !doAnimation;
   System.out.println("doAnimation: " + doAnimation);
-  grid.setMark("X",grid.getGridLocation());
+  if(currentGrid != null){
+    currentGrid.setMark("X",currentGrid.getGridLocation());
+  }
+
   
 }
 
@@ -172,7 +178,7 @@ void keyPressed(){
       player1Row-=1;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
   }
 
@@ -199,7 +205,7 @@ void keyPressed(){
       p = p1;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
 
 
@@ -229,7 +235,7 @@ void keyPressed(){
       p = p2;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
     
   }
@@ -257,7 +263,7 @@ void keyPressed(){
       p = p1;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
   }
 
@@ -284,7 +290,7 @@ void keyPressed(){
       p = p2;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
   }
   
@@ -297,7 +303,7 @@ void keyPressed(){
       player1Row+=1;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
   }
 
@@ -311,7 +317,7 @@ void keyPressed(){
       p = p2;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
   }
 
@@ -333,7 +339,7 @@ void keyPressed(){
       p = p1;
       p.setAnimationSpeed(walkSpeed);
       GridLocation loc = new GridLocation(player1Row, player1Col);
-      grid.setTileSprite(loc, p);
+      currentGrid.setTileSprite(loc, p);
     }
   }
 }
@@ -360,18 +366,18 @@ public void updateScreen(){
   //Update the Background
   background(currentScreen.getBg());
 
-
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
     currentScreen = mainGrid;
   }
 
-  //Update mainGrid screen
+  //skyGrid Screen Updates
   if(currentScreen == mainGrid){
+    currentGrid = mainGrid;
 
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row, player1Col);
-    grid.setTileSprite(player1Loc, p);
+    currentGrid.setTileSprite(player1Loc, p);
 
     //Display House
     image(hs, 0, 0, width/4, height/3);
@@ -380,6 +386,7 @@ public void updateScreen(){
     //Switch screens when entering the house
     if(player1Row == 20 && player1Col ==  10){
       currentScreen = houseGrid;
+      currentGrid = houseGrid;
       // bg = loadImage("images/inhouse.png");
       // bg.resize(1920,1080);  
     }
