@@ -24,6 +24,7 @@ PImage splashBg;
 
 //Main Screen Variables
 Grid mainGrid;
+Screen mainScreen;
 String mainBgFile = "images/grass.png";
 PImage mainBg;
 
@@ -171,7 +172,7 @@ void keyPressed(){
     if(player1Row - 2 <= 2){
       player1Row +=0;
     }
-    else if(itemCollisions() == true) {
+    else if(itemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else{   
@@ -196,7 +197,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=0;
     }
-    else if(itemCollisions() == true) {
+    else if(itemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else{
@@ -217,7 +218,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=1;
     }
-    else if(itemCollisions() == true) {
+    else if(itemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else if(player1Col + 2 >= 92 && (player1Row - 2 <= 2) == false){
@@ -246,7 +247,7 @@ void keyPressed(){
       player1Row +=1;
       player1Col +=0;
     }
-    else if(itemCollisions() == true) {
+    else if(itemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else if(player1Row + 2 >= 86 && (player1Col - 2 <= 2) == false){
@@ -273,7 +274,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=1;
     }
-    else if(itemCollisions() == true) {
+    else if(itemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else if(player1Col + 2 >= 92 && (player1Row + 2 >= 86) == false){
@@ -328,7 +329,7 @@ void keyPressed(){
     if(player1Col - 2 <= 2){
       player1Col +=0;
     }
-    else if(itemCollisions() == true) {
+    else if(itemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     // if((player1Col - 2 < 23 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
@@ -365,7 +366,8 @@ public void updateScreen(){
 
   //Update the Background
   background(currentScreen.getBg());
-
+  GridLocation player1Loc = new GridLocation(player1Row, player1Col);
+  currentGrid.setTileSprite(player1Loc, p);
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
     currentScreen = mainGrid;
@@ -376,8 +378,7 @@ public void updateScreen(){
     currentGrid = mainGrid;
 
     //Display the Player1 image
-    GridLocation player1Loc = new GridLocation(player1Row, player1Col);
-    currentGrid.setTileSprite(player1Loc, p);
+    
 
     //Display House
     image(hs, 0, 0, width/4, height/3);
