@@ -86,7 +86,6 @@ void draw() {
   if(isGameOver()){
     endGame();
   }
-ws
   //checkExampleAnimation();
 
 }

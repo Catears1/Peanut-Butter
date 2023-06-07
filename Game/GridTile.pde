@@ -2,7 +2,7 @@
  * GridTiles have distinguishable marks that will be printed out to the console for easy visualization of a 2D array
  * GridTiles can indicate if they have been "captured", colored, or are displaying an image
  * Authors: Joel Bianchi, Naomi Gaylor, Ezzeldin Moussa
- * Last Edit: 5/23/2023
+ * Last Edit: 6/6/2023
  * Edited to be superclass of HexTile, included hasImage() function
  */
 
@@ -52,6 +52,11 @@ public class GridTile{
   public String getMark(){
     return mark;
   }
+
+  //Method to access the symbol for no mark
+  public String getNoMark(){
+    return noMark;
+  }
   
   // Mutator method that automatically changes the mark
   public void setMark(String mark){
@@ -69,6 +74,16 @@ public class GridTile{
     } else {
       System.out.println("That GridTile is already taken!");
       return false;
+    }
+  }
+
+  public boolean removeMark(){
+    if(this.mark.equals(noMark)){
+      return false;
+    }
+    else{
+      this.mark = noMark;
+      return true;
     }
   }
   

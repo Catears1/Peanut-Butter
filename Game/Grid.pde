@@ -1,19 +1,23 @@
 /* Grid Class - Used for rectangular-tiled games
  * A 2D array of GridTiles which can be marked
  * Author: Joel Bianchi
- * Last Edit: 5/24/2023
+ * Last Edit: 6/6/2023
  * Edited to show all Images & Sprites
+ * Made a subclass of World
+ * Ability to remove marks -RJ
  */
 
-public class Grid{
+public class Grid extends World{
   
   private int rows;
   private int cols;
   private GridTile[][] board;
   
 
-  //Grid constructor that will create a Grid with the specified number of rows and cols
-  public Grid(int rows, int cols){
+  //Grid constructor #1
+  public Grid(String screenName, PImage bg, int rows, int cols){
+    super(screenName, bg);
+
     this.rows = rows;
     this.cols = cols;
     board = new GridTile[rows][cols];
@@ -25,7 +29,12 @@ public class Grid{
     }
   }
 
-  // Default Grid constructor that creates a 3x3 Grid  
+  //Grid Construtor #2: Only accepts the number of rows & columns (Default for 2023)
+  public Grid(int rows, int cols){
+    this("grid",null, rows, cols);
+  }
+
+  // Grid Constructor #3: Default constructor that creates a 3x3 Grid  
   public Grid(){
      this(3,3);
   }
@@ -37,6 +46,24 @@ public class Grid{
   public void setMark(String mark, GridLocation loc){
     board[loc.getRow()][loc.getCol()].setNewMark(mark);
     printGrid();
+  } 
+  
+  //Method to get the mark value at a location -RJ Morel
+  public String getMark(GridLocation loc){
+    return board[loc.getRow()][loc.getCol()].getMark();
+  }
+  
+  //Method to get the mark value at a location -RJ Morel
+  public boolean removeMark(GridLocation loc){
+    boolean isGoodClick = board[loc.getRow()][loc.getCol()].removeMark();
+    return isGoodClick;
+  }
+  
+  //Method to check if a location has a mark -RJ Morel
+  public boolean hasMark(GridLocation loc){
+    GridTile tile = board[loc.getRow()][loc.getCol()];
+    boolean isGoodClick = tile.getMark() != tile.getNoMark();
+    return isGoodClick;
   } 
 
   // Method that Assigns a String mark to a location in the Grid.  
@@ -218,7 +245,7 @@ public class Grid{
 
   
   //Method to show all the PImages stored in each GridTile
-  public void showSprites(){
+  public void showGridSprites(){
 
     //Loop through all the Tiles and display its images/sprites
       for(int r=0; r<getNumRows(); r++){
@@ -236,19 +263,26 @@ public class Grid{
       }
   }
 
+  //Method to clear the screen from all Images & Sprites
+    public void clearGrid(){
 
+      //Loop through all the Tiles and display its images/sprites
+        for(int r=0; r<getNumRows(); r++){
+          for(int c=0; c<getNumCols(); c++){
 
-
-
-
-
-  public void pause(final int milliseconds) {
-    try {
-      Thread.sleep(milliseconds);
-    } catch (final Exception e) {
-      // ignore
+            //Store temporary GridLocation
+            GridLocation tempLoc = new GridLocation(r,c);
+            
+            //Check if the tile has an image
+            if(hasTileSprite(tempLoc)){
+              setTileSprite(tempLoc, getTileSprite(tempLoc));
+              //showTileSprite(tempLoc);
+            }
+          }
+        }
     }
-  }
+
+
 
 
 }
