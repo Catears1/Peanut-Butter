@@ -30,7 +30,7 @@ PImage mainBg;
 
 PImage player1;
 String player1File = "images/x_wood.png";
-int player1Row = 3;
+int player1Row = 30;
 int player1Col = 3;
 float walkSpeed = 0.2;
 int health = 3;
@@ -92,7 +92,6 @@ void setup() {
   currentGrid = mainGrid;
 
   //Load other images
-  hs = loadImage(hsFile);
 
   //setup the sprites  
   player1 = loadImage(player1File);
@@ -107,6 +106,7 @@ void setup() {
   // mainGrid.addSpriteCopyTo(item1, 1000,100);
   // mainGrid.addSpriteCopyTo(item2, 900, 400);
   mainGrid.printSprites();
+  hs = loadImage(hsFile);
   System.out.println("Done adding sprites to sky world..");
 
   //Other Setup
@@ -127,10 +127,11 @@ void draw() {
   // image(hs, 0, 0, width/2, height/2);
 
   updateTitleBar();
+  p.update();
   updateScreen(); //<--where logic is to switch screens
   populateSprites();
   moveSprites();
-  p.update();
+  
   if(isGameOver()){
     endGame();
   }
@@ -172,7 +173,10 @@ void keyPressed(){
     if(player1Row - 2 <= 2){
       player1Row +=0;
     }
-    else if(itemCollisions() == true && currentScreen == mainGrid) {
+    else if(mainItemCollisions() == true && currentScreen == mainGrid) {
+      player1Row+=0;
+    }
+    else if(hsItemCollisions() == true && currentScreen == houseGrid) {
       player1Row+=0;
     }
     else{   
@@ -197,7 +201,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=0;
     }
-    else if(itemCollisions() == true && currentScreen == mainGrid) {
+    else if(mainItemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else{
@@ -218,7 +222,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=1;
     }
-    else if(itemCollisions() == true && currentScreen == mainGrid) {
+    else if(mainItemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else if(player1Col + 2 >= 92 && (player1Row - 2 <= 2) == false){
@@ -247,7 +251,7 @@ void keyPressed(){
       player1Row +=1;
       player1Col +=0;
     }
-    else if(itemCollisions() == true && currentScreen == mainGrid) {
+    else if(mainItemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else if(player1Row + 2 >= 86 && (player1Col - 2 <= 2) == false){
@@ -274,7 +278,7 @@ void keyPressed(){
       player1Row +=0;
       player1Col +=1;
     }
-    else if(itemCollisions() == true && currentScreen == mainGrid) {
+    else if(mainItemCollisions() == true && currentScreen == mainGrid) {
       player1Row+=0;
     }
     else if(player1Col + 2 >= 92 && (player1Row + 2 >= 86) == false){
@@ -299,6 +303,8 @@ void keyPressed(){
   if(keyCode == 83){
     if(player1Row + 2 >= 86){
       player1Row +=0;
+    }else if(hsItemCollisions() == true && currentScreen == houseGrid) {
+      player1Row+=0;
     }
     else{
       player1Row+=1;
@@ -313,6 +319,7 @@ void keyPressed(){
     if(player1Col + 2 >= 92){
       player1Col +=0;
     }
+    
     else{
       player1Col+=1;
       p = p2;
@@ -329,7 +336,10 @@ void keyPressed(){
     if(player1Col - 2 <= 2){
       player1Col +=0;
     }
-    else if(itemCollisions() == true && currentScreen == mainGrid) {
+    else if(mainItemCollisions() == true && currentScreen == mainGrid) {
+      player1Row+=0;
+    }
+    else if(hsItemCollisions() == true && currentScreen == houseGrid) {
       player1Row+=0;
     }
     // if((player1Col - 2 < 23 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
@@ -368,6 +378,7 @@ public void updateScreen(){
   background(currentScreen.getBg());
   GridLocation player1Loc = new GridLocation(player1Row, player1Col);
   currentGrid.setTileSprite(player1Loc, p);
+  
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
     currentScreen = mainGrid;
@@ -382,14 +393,20 @@ public void updateScreen(){
 
     //Display House
     image(hs, 0, 0, width/4, height/3);
+    currentGrid.setTileSprite(player1Loc, p);
     //image(hs, 0, 0);
 
     //Switch screens when entering the house
     if(player1Row == 20 && player1Col ==  10){
       currentScreen = houseGrid;
       currentGrid = houseGrid;
-      // bg = loadImage("images/inhouse.png");
-      // bg.resize(1920,1080);  
+      player1Row = 71;
+      player1Col = 49;
+    }
+
+    if(currentScreen == houseGrid){
+      
+      currentGrid = houseGrid;
     }
 
     //update other screen elements
@@ -423,10 +440,23 @@ public void handleCollisions(){
 
 }
 
- public boolean itemCollisions() {
-  if((player1Col - 2 < 23 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
+ public boolean mainItemCollisions() {
+  if((player1Col - 2 < 20 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
     return true;
   }else{
+    return false;
+  }
+  
+}
+
+public boolean hsItemCollisions() {
+  if((player1Col - 2 < 12 && player1Row + 2 > 48) && (player1Row - 2 < 84 && player1Col - 2 < 15)){
+    return true;
+  }
+  else if ((player1Col - 2 < 23 && player1Row - 2 < 29) && (player1Col - 2 < 23 && player1Row - 2 > 4)) {
+    return true;
+  }
+  else{
     return false;
   }
   
