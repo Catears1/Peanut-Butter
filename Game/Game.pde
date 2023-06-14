@@ -447,7 +447,12 @@ public void updateScreen(){
   }
 
   if(currentScreen == houseGrid){
+      
       image(bag, 850, 350, width/9, height/8);
+      currentGrid.setTileSprite(player1Loc, p);
+      if(border(45,31,56,39) == true){
+        System.out.println("border");
+      }
       currentGrid = houseGrid;
       
 
@@ -455,7 +460,7 @@ public void updateScreen(){
     }
 
   //Other Screen? House? End?
-
+    
 
 }
 
@@ -518,6 +523,7 @@ public boolean border(int x1, int y1, int x2, int y2){
 
 //method to indicate when the main game is over
 public boolean isGameOver(){
+  
   return false; //by default, the game is never over
 }
 
