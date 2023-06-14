@@ -63,7 +63,7 @@ boolean doAnimation;
 //EndScreen variables
 World endScreen;
 PImage endBg;
-String endBgFile = "images/youwin.png";
+String endBgFile = "images/end_bg.png";
 
 //Example Variables
 //HexGrid hGrid = new HexGrid(3);
@@ -451,7 +451,7 @@ public void updateScreen(){
       image(bag, 850, 350, width/9, height/8);
       currentGrid.setTileSprite(player1Loc, p);
       if(border(45,31,56,39) == true){
-        System.out.println("border");
+        currentScreen = endScreen;
       }
       currentGrid = houseGrid;
       
@@ -523,15 +523,16 @@ public boolean border(int x1, int y1, int x2, int y2){
 
 //method to indicate when the main game is over
 public boolean isGameOver(){
-  
+  if(currentScreen == endScreen){
+      extraText = "Game Over!";
+      return true;
+    }
   return false; //by default, the game is never over
 }
 
 //method to describe what happens after the game is over
 public void endGame(){
     System.out.println("Game Over!");
-
-    //Update the title bar
 
     //Show any end imagery
     currentScreen = endScreen;
