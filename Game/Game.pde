@@ -19,7 +19,7 @@ Grid currentGrid;
 
 //Splash Screen Variables
 Screen splashScreen;
-String splashBgFile = "images/chess.jpg";
+String splashBgFile = "images/Loading.png";
 PImage splashBg;
 
 //Main Screen Variables
@@ -41,10 +41,17 @@ Player p2;
 PImage hs;
 String hsFile = "images/outhouseremovedbg.png";
 
+//Clothing Change Variables
+PImage bag;
+String bagFile = "images/bag.png";
+
+
+
 //House Screen Variables
 Grid houseGrid;
 PImage houseBg;
 String houseBgFile = "images/inhouse.png";
+
 
 String bgs[] = {"inhouse.png", "outhouseremovedbg.png", "grass.png"};
 // boolean itemCollision = false;
@@ -94,6 +101,7 @@ void setup() {
   //Load other images
 
   //setup the sprites  
+
   player1 = loadImage(player1File);
   player1.resize(mainGrid.getTileWidthPixels(),mainGrid.getTileHeightPixels());
   p1 = new Player("sprites/chick_walk.png", "sprites/chick_walk.json");
@@ -107,6 +115,7 @@ void setup() {
   // mainGrid.addSpriteCopyTo(item2, 900, 400);
   mainGrid.printSprites();
   hs = loadImage(hsFile);
+  bag = loadImage(bagFile);
   System.out.println("Done adding sprites to sky world..");
 
   //Other Setup
@@ -132,6 +141,8 @@ void draw() {
   populateSprites();
   moveSprites();
   
+  
+
   if(isGameOver()){
     endGame();
   }
@@ -179,6 +190,15 @@ void keyPressed(){
     else if(hsItemCollisions() == true && currentScreen == houseGrid) {
       player1Row+=0;
     }
+    else if(currentScreen == houseGrid && player1Row-2 <= 17){
+      player1Row+=0;
+    }
+
+    else if(currentScreen == houseGrid && border(88, 23, 98, 44) == true){
+      player1Row+=0;;
+    }
+    
+
     else{   
       player1Row-=1;
       p.setAnimationSpeed(walkSpeed);
@@ -306,6 +326,10 @@ void keyPressed(){
     }else if(hsItemCollisions() == true && currentScreen == houseGrid) {
       player1Row+=0;
     }
+    else if(currentScreen == houseGrid && border(88, 23, 98, 44) == true){
+      player1Col+=0;;
+    }
+
     else{
       player1Row+=1;
       p.setAnimationSpeed(walkSpeed);
@@ -319,7 +343,11 @@ void keyPressed(){
     if(player1Col + 2 >= 92){
       player1Col +=0;
     }
-    
+
+    else if(currentScreen == houseGrid && border(88, 23, 98, 44) == true){
+      player1Col+=0;;
+    }
+
     else{
       player1Col+=1;
       p = p2;
@@ -341,6 +369,9 @@ void keyPressed(){
     }
     else if(hsItemCollisions() == true && currentScreen == houseGrid) {
       player1Row+=0;
+    }
+    else if(border(0, 30, 10, 47) == true && currentScreen == houseGrid){
+      player1Col+=0;
     }
     // if((player1Col - 2 < 23 && player1Row + 2 > 4) && (player1Row - 2  < 19 && player1Col + 2 > 4)){
     //   
@@ -396,17 +427,15 @@ public void updateScreen(){
     currentGrid.setTileSprite(player1Loc, p);
     //image(hs, 0, 0);
 
+    
+
+
     //Switch screens when entering the house
     if(player1Row == 20 && player1Col ==  10){
       currentScreen = houseGrid;
       currentGrid = houseGrid;
       player1Row = 71;
       player1Col = 49;
-    }
-
-    if(currentScreen == houseGrid){
-      
-      currentGrid = houseGrid;
     }
 
     //update other screen elements
@@ -416,6 +445,14 @@ public void updateScreen(){
     // checkExampleAnimation();
 
   }
+
+  if(currentScreen == houseGrid){
+      image(bag, 850, 350, width/9, height/8);
+      currentGrid = houseGrid;
+      
+
+      
+    }
 
   //Other Screen? House? End?
 
@@ -462,6 +499,23 @@ public boolean hsItemCollisions() {
   
 }
 
+
+
+public boolean border(int x1, int y1, int x2, int y2){
+  if(player1Col + 2 >= x1 && player1Col + 2 <= x2 && player1Row >= y1 && player1Row <= y2){
+  
+    return true;
+    
+  }
+  else if(player1Col - 2 >= x1 && player1Col - 2 <= x2 && player1Row >= y1 && player1Row <= y2){
+    return true;
+  }
+
+  else{
+    return false;
+  }
+}
+
 //method to indicate when the main game is over
 public boolean isGameOver(){
   return false; //by default, the game is never over
@@ -477,6 +531,19 @@ public void endGame(){
     currentScreen = endScreen;
     //image(endBg, 100,100);
 
+}
+
+void drawBorderedBox(float x, float y, float width, float height) {
+    float borderWidth = 2.0;  // Adjust this value as desired
+    
+    // Draw the box
+    rect(x, y, width, height);
+    
+    // Draw the border
+    stroke(0);  // Set the border color (0 is black)
+    strokeWeight(borderWidth);
+    noFill();  // Do not fill the box
+    rect(x, y, width, height);
 }
 
 //example method that creates 5 horses along the screen
